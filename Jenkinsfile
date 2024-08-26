@@ -5,7 +5,10 @@ node {
   stage('SonarQube Analysis') {
     def scannerHome = tool 'Scanner1';
     withSonarQubeEnv() {
-      sh "${scannerHome}/bin/sonar-scanner"
+       if (isUnix()) 
+        sh "${scannerHome}/bin/sonar-scanner"
+     else 
+       bat "${scannerHome}/bin/sonar-scanner"      
     }
   }
 }
